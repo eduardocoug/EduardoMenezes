@@ -1,0 +1,39 @@
+<%-include('../cabecalho.ejs')%>
+  <header>
+    <h3>Editar Filme</h3>
+  </header>
+  <div class="content">
+    <form id="form-instrumento" autocomplete="off" action="/filmes/edit/ok" method="post">
+
+      <input type="hidden" name="id" value="<%= filme._id %>">
+
+
+      <div class="grid">
+        <div>
+          <label for="nome">Nome do Filme</label>
+          <input id="nome" name="nome" type="text" value="<%= filme.nome %>" required>
+        </div>
+
+        <div>
+          <label for="ano">Ano</label>
+          <input id="ano" name="ano" type="number" value="<%= filme.ano %>" placeholder="Ex: 2018" required>
+        </div>
+
+        <div>
+          <label for="classificacao">Classificação</label>
+          <select id="classificacao" name="classificacao" required>
+            <option value="" disabled>Selecione a Classificação</option>
+            <option value="12" <%= filme.classificacao == '12' ? 'selected' : '' %>>12</option>
+            <option value="14" <%= filme.classificacao == '14' ? 'selected' : '' %>>14</option>
+            <option value="16" <%= filme.classificacao == '16' ? 'selected' : '' %>>16</option>
+            <option value="18" <%= filme.classificacao == '18' ? 'selected' : '' %>>18</option>
+          </select>
+        </div>
+
+        <footer>
+          <a type="button" class="btn ghost" id="btn-cancelar" href="/filmes/lst">Cancelar</a>
+          <button type="submit" class="btn primary">Salvar Alterações</button>
+        </footer>
+    </form>
+  </div>
+<%-include('../rodape.ejs')%>

@@ -1,0 +1,33 @@
+<%-include('../cabecalho.ejs')%>
+  <header>
+    <h3>Editar Universo</h3>
+  </header>
+  <div class="content">
+    <form id="form-universo" autocomplete="off" action="/universos/edit/ok" method="post">
+
+      <input type="hidden" name="id" value="<%= universo._id %>">
+
+      <div class="grid">
+        <div>
+          <label for="nome">Nome do Universo</label>
+          <input id="nome" name="nome" type="text" value="<%= universo.nome %>" required>
+        </div>
+
+        <div>
+          <label for="status">Status</label>
+          <input id="status" name="status" type="text" value="<%= universo.status %>">
+        </div>
+
+        <div>
+          <label for="descricao">Descrição</label>
+          <input id="descricao" name="descricao" type="text" value="<%= universo.descricao %>">
+        </div>
+      </div>
+
+      <footer>
+        <a type="button" class="btn ghost" id="btn-cancelar" href="/universos/lst">Cancelar</a>
+        <button type="submit" class="btn primary">Salvar Alterações</button>
+      </footer>
+    </form>
+  </div>
+<%-include('../rodape.ejs')%>

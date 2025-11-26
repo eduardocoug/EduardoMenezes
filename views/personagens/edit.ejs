@@ -1,0 +1,38 @@
+<%-include('../cabecalho.ejs')%>
+  <header>
+    <h3>Editar Personagem</h3>
+  </header>
+  <div class="content">
+    <form id="form-personagem" autocomplete="off" action="/personagens/edit/ok" method="post">
+
+      <input type="hidden" name="id" value="<%= personagem._id %>">
+
+      <div class="grid">
+        <div>
+          <label for="nome">Nome do Personagem</label>
+          <input id="nome" name="nome" type="text" value="<%= personagem.nome %>" required>
+        </div>
+
+        <div>
+          <label for="tipo">Tipo</label>
+          <input id="tipo" name="tipo" type="text" value="<%= personagem.tipo %>">
+        </div>
+
+        <div>
+          <label for="afiliacao">Afiliação</label>
+          <input id="afiliacao" name="afiliacao" type="text" value="<%= personagem.afiliacao %>">
+        </div>
+        
+        <div>
+          <label for="primeira_aparicao">Primeira Aparição (Ano)</label>
+          <input id="primeira_aparicao" name="primeira_aparicao" type="number" value="<%= personagem.primeira_aparicao %>">
+        </div>
+      </div>
+
+      <footer>
+        <a type="button" class="btn ghost" id="btn-cancelar" href="/personagens/lst">Cancelar</a>
+        <button type="submit" class="btn primary">Salvar Alterações</button>
+      </footer>
+    </form>
+  </div>
+<%-include('../rodape.ejs')%>

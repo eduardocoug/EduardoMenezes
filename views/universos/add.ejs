@@ -1,0 +1,29 @@
+<%-include('../cabecalho.ejs')%>
+     <header>
+        <h3>Adicionar Novo Universo</h3>
+      </header>
+      <div class="content">
+        <form id="form-instrumento" autocomplete="off" action="/universos/add/ok" method="post">
+          <div class="grid">
+            <div>
+              <label for="nome">Nome do Universo</label>
+              <input id="nome" name="nome" type="string" placeholder="Ex: Terra-1048" required>
+            </div>
+            <div>
+              <label for="status">Status</label>
+              <select id="status" name="status" required>
+                <option value="" disabled selected>Selecione o Status do Universo</option>
+                <option>Ativo</option>
+                <option>Destruído</option>
+                <option>Alternativo</option>
+              </select>
+            </div>
+            <div>
+              <label for="descricao">Descrição</label>
+              <input id="descricao" name="descricao" type="string"
+               <footer>
+            <a type="button" class="btn ghost" id="btn-cancelar" href="/personagens/lst">Cancelar</a>
+            <button type="submit" class="btn primary">Adicionar Novo Universo</button>
+          </footer>
+        </form>
+            </div>
