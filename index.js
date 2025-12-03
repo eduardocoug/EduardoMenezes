@@ -166,7 +166,7 @@ app.get('/universos/del/:id', async (req, res) => {
 
 //====== SITE ======
 app.get('/site', async (req, res) => {
-   const personagens = await Personagem.find
+   const personagens = await personagens.find
 res.render("site/index")
 })
 
