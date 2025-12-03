@@ -11,7 +11,7 @@ app.use(express.urlencoded({extended:true}))
 app.set('view engine', 'ejs')
 
 import multer from 'multer';
-<%=poder.nome%>
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
