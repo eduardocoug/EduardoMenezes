@@ -1,31 +1,38 @@
+import express from 'express';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
 import { createServer } from 'http';
-import express from 'express'
+
 const app = express();
-//Importar os modelos 
-import Poder from '../models/Poderes.js';
-import Personagens from '../models/Personagens.js';
-import Filme from '../models/Filme.js';
-import Universo from '../models/Universo.js';
 
-//Confiram se tem essa linha aqui também
-app.use(express.urlencoded({extended:true}))
-app.set('view engine', 'ejs')
+app.use(express.urlencoded({ extended: true }));
+app.set('view engine', 'ejs');
 
+// Caminho correto das views e public
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+// COLOCAR OS MODELS AQUI (colocar o caminho ../)
+
+import Poder from './models/Poderes.js';
+import Personagens from './models/Personagens.js';
+import Filme from './models/Filme.js';
+import Universo from './models/Universo.js';
+
+//FIM MODELS
+
+// Servir arquivos estáticos
+//app.use(express.static(join(__dirname, '../public')));
+app.set('views', join(__dirname, '../views'));
+
+// Rotas
 import multer from 'multer';
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-//Liberar acesso a pasta public
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+// COLOCAR AS ROTAS AQUI
 
-// Converte o caminho do arindex.jsquivo atual
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-app.use(express.static(__dirname + '../public'))
-
-//rotas
 app.get('/', (req, res) => {
     res.render("index")
 })
@@ -166,13 +173,11 @@ app.get('/universos/del/:id', async (req, res) => {
 
 //====== SITE ======
 app.get('/site', async (req, res) => {
-   const personagens = await Personagem.find
+   const personagens = await personagens.find
 res.render("site/index")
 })
 
-
-
-
-
-app.listen(8080)
-console.log("Servidor rodando em http://localhost:8080")
+//FIM ROTAS
+app.listen(3001)
+// Exporta o handler compatível com Vercel
+export default app;
