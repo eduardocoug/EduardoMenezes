@@ -14,10 +14,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 // COLOCAR OS MODELS AQUI (colocar o caminho ../)
 
-import Poder from './models/Poderes.js';
-import Personagens from './models/Personagens.js';
-import Filme from './models/Filme.js';
-import Universo from './models/Universo.js';
+import Poder from '../models/Poderes.js';
+import Personagens from '../models/Personagens.js';
+import Filme from '../models/Filme.js';
+import Universo from '../models/Universo.js';
 
 //FIM MODELS
 
