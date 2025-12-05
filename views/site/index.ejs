@@ -1,1112 +1,950 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Universo Marvel - Database</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        /* ===== RESET & BASE ===== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
-  line-height: 1.6;
-  color: #1e293b;
-  background: #f8fafc;
-}
-
-.container {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-/* ===== NAVEGAÇÃO ===== */
-.navbar {
-  position: sticky;
-  top: 0;
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  border-bottom: 2px solid #ef4444;
-}
-
-.navbar .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-}
-
-.nav-brand {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #ef4444;
-  letter-spacing: 2px;
-}
-
-.nav-menu {
-  display: flex;
-  list-style: none;
-  gap: 2rem;
-}
-
-.nav-menu a {
-  color: #e2e8f0;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.3s;
-  position: relative;
-}
-
-.nav-menu a:hover {
-  color: #ef4444;
-}
-
-.nav-menu a::after {
-  content: '';
-  position: absolute;
-  bottom: -5px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: #ef4444;
-  transition: width 0.3s;
-}
-
-.nav-menu a:hover::after {
-  width: 100%;
-}
-
-/* ===== HERO SECTION ===== */
-.hero {
-  position: relative;
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
-  color: white;
-  padding: 6rem 2rem;
-  text-align: center;
-  overflow: hidden;
-}
-
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: 
-      radial-gradient(circle at 20% 50%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(239, 68, 68, 0.1) 0%, transparent 50%);
-}
-
-.hero-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-}
-
-.hero-title {
-  font-size: 4rem;
-  font-weight: 800;
-  margin-bottom: 1rem;
-  background: linear-gradient(to right, #ffffff, #ef4444);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.hero-subtitle {
-  font-size: 1.5rem;
-  color: #cbd5e1;
-  margin-bottom: 3rem;
-}
-
-.hero-stats {
-  display: flex;
-  justify-content: center;
-  gap: 3rem;
-  flex-wrap: wrap;
-}
-
-.stat-item {
-  text-align: center;
-}
-
-.stat-number {
-  font-size: 3rem;
-  font-weight: 700;
-  color: #ef4444;
-}
-
-.stat-label {
-  font-size: 1rem;
-  color: #94a3b8;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* ===== MAIN CONTENT ===== */
-.main-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 4rem 2rem;
-}
-
-/* ===== SECTIONS ===== */
-.section {
-  margin-bottom: 6rem;
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  margin-bottom: 3rem;
-}
-
-.section-icon {
-  font-size: 3rem;
-  width: 80px;
-  height: 80px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: linear-gradient(135deg, #ef4444, #dc2626);
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
-}
-
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 0.5rem;
-}
-
-.section-description {
-  font-size: 1.1rem;
-  color: #64748b;
-}
-
-/* ===== FILMES ===== */
-.section-filmes {
-  background: linear-gradient(to bottom, transparent, #fef2f2, transparent);
-  padding: 3rem 0;
-}
-
-.filmes-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-}
-
-.filme-card {
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  border: 2px solid #fee2e2;
-  transition: all 0.3s;
-  position: relative;
-  overflow: hidden;
-}
-
-.filme-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(to right, #ef4444, #dc2626);
-}
-
-.filme-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(239, 68, 68, 0.15);
-  border-color: #ef4444;
-}
-
-.filme-year {
-  display: inline-block;
-  background: #fef2f2;
-  color: #dc2626;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-weight: 600;
-  font-size: 0.9rem;
-  margin-bottom: 1rem;
-}
-
-.filme-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 1.5rem;
-}
-
-.filme-meta {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-.filme-rating,
-.filme-phase {
-  padding: 0.4rem 1rem;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.filme-rating {
-  background: #f1f5f9;
-  color: #475569;
-}
-
-.filme-phase {
-  background: #eff6ff;
-  color: #1e40af;
-}
-
-/* ===== PERSONAGENS ===== */
-.section-personagens {
-  background: linear-gradient(to bottom, transparent, #f0f9ff, transparent);
-  padding: 3rem 0;
-}
-
-.personagens-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 2.5rem;
-}
-
-.personagem-card {
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s;
-  border: 2px solid transparent;
-}
-
-.personagem-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  border-color: #ef4444;
-}
-
-.personagem-image {
-  position: relative;
-  height: 280px;
-  overflow: hidden;
-  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
-}
-
-.personagem-image img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.5s;
-}
-
-.personagem-card:hover .personagem-image img {
-  transform: scale(1.1);
-}
-
-.personagem-tipo {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  backdrop-filter: blur(10px);
-}
-
-.personagem-heroi {
-  background: rgba(34, 197, 94, 0.9);
-  color: white;
-}
-
-.personagem-vilao {
-  background: rgba(239, 68, 68, 0.9);
-  color: white;
-}
-
-.personagem-content {
-  padding: 2rem;
-}
-
-.personagem-name {
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: #0f172a;
-  margin-bottom: 0.3rem;
-}
-
-.personagem-alias {
-  font-size: 1.1rem;
-  color: #ef4444;
-  font-weight: 600;
-  margin-bottom: 1.5rem;
-}
-
-.personagem-info {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.info-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.info-label {
-  font-size: 0.85rem;
-  color: #64748b;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-weight: 600;
-}
-
-.info-value {
-  font-size: 1rem;
-  color: #1e293b;
-}
-
-/* ===== PODERES ===== */
-.section-poderes {
-  background: linear-gradient(to bottom, transparent, #fef3c7, transparent);
-  padding: 3rem 0;
-}
-
-.poderes-container {
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.poderes-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 1.5rem;
-}
-
-.poder-item {
-  background: white;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  border-left: 4px solid #f59e0b;
-  transition: all 0.3s;
-}
-
-.poder-item:hover {
-  transform: translateX(5px);
-  box-shadow: 0 8px 16px rgba(245, 158, 11, 0.15);
-}
-
-.poder-header {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.poder-icon {
-  font-size: 2rem;
-  width: 50px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #fef3c7;
-  border-radius: 10px;
-  flex-shrink: 0;
-}
-
-.poder-name {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #0f172a;
-  margin-bottom: 0.3rem;
-}
-
-.poder-usuario {
-  font-size: 0.95rem;
-  color: #f59e0b;
-  font-weight: 500;
-}
-
-/* ===== MULTIVERSO ===== */
-.section-multiverso {
-  background: linear-gradient(to bottom, transparent, #f5f3ff, transparent);
-  padding: 3rem 0;
-}
-
-.multiverso-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-}
-
-.universo-card {
-  background: white;
-  border-radius: 16px;
-  padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-  border: 2px solid #e9d5ff;
-  transition: all 0.3s;
-  position: relative;
-}
-
-.universo-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(to right, #8b5cf6, #6366f1);
-  border-radius: 16px 16px 0 0;
-}
-
-.universo-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 24px rgba(139, 92, 246, 0.15);
-}
-
-.universo-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-  gap: 1rem;
-}
-
-.universo-name {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #0f172a;
-}
-
-.universo-badge {
-  padding: 0.4rem 1rem;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-}
-
-.badge-principal {
-  background: #fef2f2;
-  color: #dc2626;
-}
-
-.badge-ativo {
-  background: #dcfce7;
-  color: #16a34a;
-}
-
-.badge-inativo {
-  background: #f1f5f9;
-  color: #64748b;
-}
-
-.universo-description {
-  color: #475569;
-  line-height: 1.8;
-  margin-bottom: 1.5rem;
-}
-
-.universo-footer {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
-.universo-tag {
-  padding: 0.4rem 0.8rem;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  font-size: 0.85rem;
-  color: #64748b;
-  font-weight: 500;
-}
-
-/* ===== FOOTER ===== */
-.footer {
-  background: linear-gradient(to bottom, #0f172a, #020617);
-  color: #cbd5e1;
-  padding: 3rem 0 2rem;
-  border-top: 3px solid #ef4444;
-}
-
-.footer-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 3rem;
-  margin-bottom: 2rem;
-}
-
-.footer-section h4 {
-  color: #ef4444;
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-}
-
-.footer-section p {
-  color: #94a3b8;
-  line-height: 1.8;
-}
-
-.footer-links {
-  list-style: none;
-}
-
-.footer-links a {
-  color: #94a3b8;
-  text-decoration: none;
-  transition: color 0.3s;
-  display: inline-block;
-  margin-bottom: 0.5rem;
-}
-
-.footer-links a:hover {
-  color: #ef4444;
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-  .nav-menu {
-      gap: 1rem;
-      font-size: 0.9rem;
-  }
-
-  .hero-title {
-      font-size: 2.5rem;
-  }
-
-  .hero-subtitle {
-      font-size: 1.1rem;
-  }
-
-  .hero-stats {
-      gap: 1.5rem;
-  }
-
-  .stat-number {
-      font-size: 2rem;
-  }
-
-  .section-header {
-      flex-direction: column;
-      align-items: flex-start;
-  }
-
-  .section-title {
-      font-size: 2rem;
-  }
-
-  .filmes-grid,
-  .personagens-grid,
-  .multiverso-grid {
-      grid-template-columns: 1fr;
-  }
-
-  .poderes-list {
-      grid-template-columns: 1fr;
-  }
-
-  .footer-content {
-      grid-template-columns: 1fr;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Universo Marvel - Database</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ===== RESET & BASE ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+      background: #f8fafc;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ===== NAVEGAÇÃO ===== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+      border-bottom: 2px solid #ef4444;
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+
+    .nav-brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ef4444;
+      letter-spacing: 2px;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
       gap: 2rem;
-  }
-}
+    }
 
-@media (max-width: 480px) {
-  .navbar .container {
-      flex-direction: column;
-      gap: 1rem;
-  }
+    .nav-menu a {
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+      position: relative;
+    }
 
-  .nav-menu {
-      flex-wrap: wrap;
+    .nav-menu a:hover {
+      color: #ef4444;
+    }
+
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #ef4444;
+      transition: width 0.3s;
+    }
+
+    .nav-menu a:hover::after {
+      width: 100%;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      position: relative;
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+      color: white;
+      padding: 6rem 2rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(239, 68, 68, 0.1) 0%, transparent 50%);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-title {
+      font-size: 4rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      background: linear-gradient(to right, #ffffff, #ef4444);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-subtitle {
+      font-size: 1.5rem;
+      color: #cbd5e1;
+      margin-bottom: 3rem;
+    }
+
+    .hero-stats {
+      display: flex;
       justify-content: center;
-  }
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
 
-  .hero {
-      padding: 3rem 1rem;
-  }
+    .stat-item {
+      text-align: center;
+    }
 
-  .hero-title {
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #ef4444;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ===== MAIN CONTENT ===== */
+    .main-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+    }
+
+    /* ===== SECTIONS ===== */
+    .section {
+      margin-bottom: 6rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .section-icon {
+      font-size: 3rem;
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(239, 68, 68, 0.3);
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-description {
+      font-size: 1.1rem;
+      color: #64748b;
+    }
+
+    /* ===== FILMES ===== */
+    .section-filmes {
+      background: linear-gradient(to bottom, transparent, #fef2f2, transparent);
+      padding: 3rem 0;
+    }
+
+    .filmes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .filme-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 2px solid #fee2e2;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .filme-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right, #ef4444, #dc2626);
+    }
+
+    .filme-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(239, 68, 68, 0.15);
+      border-color: #ef4444;
+    }
+
+    .filme-year {
+      display: inline-block;
+      background: #fef2f2;
+      color: #dc2626;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .filme-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 1.5rem;
+    }
+
+    .filme-meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .filme-rating,
+    .filme-phase {
+      padding: 0.4rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .filme-rating {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    .filme-phase {
+      background: #eff6ff;
+      color: #1e40af;
+    }
+
+    /* ===== PERSONAGENS ===== */
+    .section-personagens {
+      background: linear-gradient(to bottom, transparent, #f0f9ff, transparent);
+      padding: 3rem 0;
+    }
+
+    .personagens-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .personagem-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .personagem-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+      border-color: #ef4444;
+    }
+
+    .personagem-image {
+      position: relative;
+      height: 300px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+    }
+
+    .personagem-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center center;
+      transition: none;
+    }
+
+    .personagem-card:hover .personagem-image img {
+      transform: none;
+    }
+
+    .personagem-tipo {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      backdrop-filter: blur(10px);
+    }
+
+    .personagem-heroi {
+      background: rgba(34, 197, 94, 0.9);
+      color: white;
+    }
+
+    .personagem-vilao {
+      background: rgba(239, 68, 68, 0.9);
+      color: white;
+    }
+
+    .personagem-content {
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1 1 auto;
+    }
+
+    .personagem-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .personagem-alias {
+      font-size: 0.95rem;
+      color: #ef4444;
+      font-weight: 600;
+      margin-bottom: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .personagem-info {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .info-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    .info-label {
+      font-size: 0.85rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+
+    .info-value {
+      font-size: 1rem;
+      color: #1e293b;
+    }
+
+    /* ===== PODERES ===== */
+    .section-poderes {
+      background: linear-gradient(to bottom, transparent, #fef3c7, transparent);
+      padding: 3rem 0;
+    }
+
+    .poderes-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .poderes-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .poder-item {
+      background: white;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      border-left: 4px solid #f59e0b;
+      transition: all 0.3s;
+    }
+
+    .poder-item:hover {
+      transform: translateX(5px);
+      box-shadow: 0 8px 16px rgba(245, 158, 11, 0.15);
+    }
+
+    .poder-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .poder-icon {
       font-size: 2rem;
-  }
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fef3c7;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
 
-  .section-icon {
-      width: 60px;
-      height: 60px;
-      font-size: 2rem;
-  }
-}
+    .poder-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin-bottom: 0.3rem;
+    }
 
-    </style>
+    .poder-usuario {
+      font-size: 0.95rem;
+      color: #f59e0b;
+      font-weight: 500;
+    }
+
+    /* ===== MULTIVERSO ===== */
+    .section-multiverso {
+      background: linear-gradient(to bottom, transparent, #f5f3ff, transparent);
+      padding: 3rem 0;
+    }
+
+    .multiverso-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+
+    .universo-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      border: 2px solid #e9d5ff;
+      transition: all 0.3s;
+      position: relative;
+    }
+
+    .universo-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(to right, #8b5cf6, #6366f1);
+      border-radius: 16px 16px 0 0;
+    }
+
+    .universo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 24px rgba(139, 92, 246, 0.15);
+    }
+
+    .universo-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1rem;
+      gap: 1rem;
+    }
+
+    .universo-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .universo-badge {
+      padding: 0.4rem 1rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .badge-principal {
+      background: #fef2f2;
+      color: #dc2626;
+    }
+
+    .badge-ativo {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .badge-inativo {
+      background: #f1f5f9;
+      color: #64748b;
+    }
+
+    .universo-description {
+      color: #475569;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .universo-footer {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .universo-tag {
+      padding: 0.4rem 0.8rem;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      background: linear-gradient(to bottom, #0f172a, #020617);
+      color: #cbd5e1;
+      padding: 3rem 0 2rem;
+      border-top: 3px solid #ef4444;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+      margin-bottom: 2rem;
+    }
+
+    .footer-section h4 {
+      color: #ef4444;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-section p {
+      color: #94a3b8;
+      line-height: 1.8;
+    }
+
+    .footer-links {
+      list-style: none;
+    }
+
+    .footer-links a {
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.3s;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a:hover {
+      color: #ef4444;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-menu {
+        gap: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .hero-title {
+        font-size: 2.5rem;
+      }
+
+      .hero-subtitle {
+        font-size: 1.1rem;
+      }
+
+      .hero-stats {
+        gap: 1.5rem;
+      }
+
+      .stat-number {
+        font-size: 2rem;
+      }
+
+      .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .section-title {
+        font-size: 2rem;
+      }
+
+      .filmes-grid,
+      .personagens-grid,
+      .multiverso-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .poderes-list {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar .container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-menu {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        padding: 3rem 1rem;
+      }
+
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .section-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <!-- Navegação -->
-    <nav class="navbar">
-        <div class="container">
-            <div class="nav-brand">MARVEL DATABASE</div>
-            <ul class="nav-menu">
-                <li><a href="#filmes">Filmes</a></li>
-                <li><a href="#personagens">Personagens</a></li>
-                <li><a href="#poderes">Poderes</a></li>
-                <li><a href="#multiverso">Multiverso</a></li>
-            </ul>
+  <!-- Navegação -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-brand">MARVEL DATABASE</div>
+      <ul class="nav-menu">
+        <li><a href="#filmes">Filmes</a></li>
+        <li><a href="#personagens">Personagens</a></li>
+        <li><a href="#poderes">Poderes</a></li>
+        <li><a href="#multiverso">Multiverso</a></li>
+        <li><a href="/">Inicio</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <h1 class="hero-title">Universo Marvel</h1>
+      <p class="hero-subtitle">Base de Dados Completa do MCU e Quadrinhos</p>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-number">6</div>
+          <div class="stat-label">Filmes</div>
         </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1 class="hero-title">Universo Marvel</h1>
-            <p class="hero-subtitle">Base de Dados Completa do MCU e Quadrinhos</p>
-            <div class="hero-stats">
-                <div class="stat-item">
-                    <div class="stat-number">6</div>
-                    <div class="stat-label">Filmes</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">6</div>
-                    <div class="stat-label">Personagens</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">8</div>
-                    <div class="stat-label">Poderes</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-number">4</div>
-                    <div class="stat-label">Universos</div>
-                </div>
-            </div>
+        <div class="stat-item">
+          <div class="stat-number">6</div>
+          <div class="stat-label">Personagens</div>
         </div>
-    </header>
-
-    <main class="main-content">
-        <!-- Seção Filmes -->
-        <section id="filmes" class="section section-filmes">
-            <div class="section-header">
-                <div class="section-icon">🎬</div>
-                <div>
-                    <h2 class="section-title">Filmes do MCU</h2>
-                    <p class="section-description">Principais produções cinematográficas da Marvel Studios</p>
-                </div>
-            </div>
-
-            <div class="filmes-grid">
-                <article class="filme-card">
-                    <div class="filme-year">2008</div>
-                    <h3 class="filme-title">Iron Man</h3>
-                    <div class="filme-meta">
-                        <span class="filme-rating">PG-13</span>
-                        <span class="filme-phase">Fase 1</span>
-                    </div>
-                </article>
-
-                <article class="filme-card">
-                    <div class="filme-year">2012</div>
-                    <h3 class="filme-title">The Avengers</h3>
-                    <div class="filme-meta">
-                        <span class="filme-rating">PG-13</span>
-                        <span class="filme-phase">Fase 1</span>
-                    </div>
-                </article>
-
-                <article class="filme-card">
-                    <div class="filme-year">2014</div>
-                    <h3 class="filme-title">Guardians of the Galaxy</h3>
-                    <div class="filme-meta">
-                        <span class="filme-rating">PG-13</span>
-                        <span class="filme-phase">Fase 2</span>
-                    </div>
-                </article>
-
-                <article class="filme-card">
-                    <div class="filme-year">2018</div>
-                    <h3 class="filme-title">Black Panther</h3>
-                    <div class="filme-meta">
-                        <span class="filme-rating">PG-13</span>
-                        <span class="filme-phase">Fase 3</span>
-                    </div>
-                </article>
-
-                <article class="filme-card">
-                    <div class="filme-year">2019</div>
-                    <h3 class="filme-title">Avengers: Endgame</h3>
-                    <div class="filme-meta">
-                        <span class="filme-rating">PG-13</span>
-                        <span class="filme-phase">Fase 3</span>
-                    </div>
-                </article>
-
-                <article class="filme-card">
-                    <div class="filme-year">2021</div>
-                    <h3 class="filme-title">Spider-Man: No Way Home</h3>
-                    <div class="filme-meta">
-                        <span class="filme-rating">PG-13</span>
-                        <span class="filme-phase">Fase 4</span>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- Seção Personagens -->
-        <section id="personagens" class="section section-personagens">
-            <div class="section-header">
-                <div class="section-icon">🦸</div>
-                <div>
-                    <h2 class="section-title">Personagens</h2>
-                    <p class="section-description">Heróis e vilões do universo Marvel</p>
-                </div>
-            </div>
-
-            <div class="personagens-grid">
-                <article class="personagem-card">
-                    <div class="personagem-image">
-                        <img src="https://images.unsplash.com/photo-1593959554825-e14b11e69227?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpcm9uJTIwbWFuJTIwbWFydmVsfGVufDF8fHx8MTc2MzAxMDA1N3ww&ixlib=rb-4.1.0&q=80&w=1080" alt="Iron Man">
-                        <div class="personagem-tipo personagem-heroi">Herói</div>
-                    </div>
-                    <div class="personagem-content">
-                        <h3 class="personagem-name">Tony Stark</h3>
-                        <p class="personagem-alias">Iron Man</p>
-                        <div class="personagem-info">
-                            <div class="info-item">
-                                <span class="info-label">Afiliação</span>
-                                <span class="info-value">Vingadores</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Primeira Aparição</span>
-                                <span class="info-value">Tales of Suspense #39 (1963)</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="personagem-card">
-                    <div class="personagem-image">
-                        <img src="https://images.unsplash.com/photo-1638379036667-ee3e8d663f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXB0YWluJTIwYW1lcmljYSUyMG1hcnZlbHxlbnwxfHx8fDE3NjMwNjEyNjF8MA&ixlib=rb-4.1.0&q=80&w=1080" alt="Capitão América">
-                        <div class="personagem-tipo personagem-heroi">Herói</div>
-                    </div>
-                    <div class="personagem-content">
-                        <h3 class="personagem-name">Steve Rogers</h3>
-                        <p class="personagem-alias">Capitão América</p>
-                        <div class="personagem-info">
-                            <div class="info-item">
-                                <span class="info-label">Afiliação</span>
-                                <span class="info-value">Vingadores</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Primeira Aparição</span>
-                                <span class="info-value">Captain America Comics #1 (1941)</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="personagem-card">
-                    <div class="personagem-image">
-                        <img src="https://images.unsplash.com/photo-1636959237460-dcdc368483a1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzcGlkZXIlMjBtYW4lMjBtYXJ2ZWx8ZW58MXx8fHwxNzYzMDYxMjYxfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Homem-Aranha">
-                        <div class="personagem-tipo personagem-heroi">Herói</div>
-                    </div>
-                    <div class="personagem-content">
-                        <h3 class="personagem-name">Peter Parker</h3>
-                        <p class="personagem-alias">Homem-Aranha</p>
-                        <div class="personagem-info">
-                            <div class="info-item">
-                                <span class="info-label">Afiliação</span>
-                                <span class="info-value">Vingadores</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Primeira Aparição</span>
-                                <span class="info-value">Amazing Fantasy #15 (1962)</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="personagem-card">
-                    <div class="personagem-image">
-                        <img src="https://images.unsplash.com/photo-1680744003456-ef70d02c0737?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0aG9yJTIwbWFydmVsfGVufDF8fHx8MTc2MzAxMDA1OHww&ixlib=rb-4.1.0&q=80&w=1080" alt="Thor">
-                        <div class="personagem-tipo personagem-heroi">Herói</div>
-                    </div>
-                    <div class="personagem-content">
-                        <h3 class="personagem-name">Thor Odinson</h3>
-                        <p class="personagem-alias">Thor</p>
-                        <div class="personagem-info">
-                            <div class="info-item">
-                                <span class="info-label">Afiliação</span>
-                                <span class="info-value">Vingadores</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Primeira Aparição</span>
-                                <span class="info-value">Journey into Mystery #83 (1962)</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="personagem-card">
-                    <div class="personagem-image">
-                        <img src="https://images.unsplash.com/photo-1621453207135-e55da77bc342?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxibGFjayUyMHdpZG93JTIwbWFydmVsfGVufDF8fHx8MTc2MzA2MTI2Mnww&ixlib=rb-4.1.0&q=80&w=1080" alt="Viúva Negra">
-                        <div class="personagem-tipo personagem-heroi">Heroína</div>
-                    </div>
-                    <div class="personagem-content">
-                        <h3 class="personagem-name">Natasha Romanoff</h3>
-                        <p class="personagem-alias">Viúva Negra</p>
-                        <div class="personagem-info">
-                            <div class="info-item">
-                                <span class="info-label">Afiliação</span>
-                                <span class="info-value">Vingadores</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Primeira Aparição</span>
-                                <span class="info-value">Tales of Suspense #52 (1964)</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="personagem-card">
-                    <div class="personagem-image">
-                        <img src="https://images.unsplash.com/photo-1515734392280-e60c25eb9f01?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYXJ2ZWwlMjBoZXJvZXN8ZW58MXx8fHwxNzYzMDYxMjYyfDA&ixlib=rb-4.1.0&q=80&w=1080" alt="Thanos">
-                        <div class="personagem-tipo personagem-vilao">Vilão</div>
-                    </div>
-                    <div class="personagem-content">
-                        <h3 class="personagem-name">Thanos</h3>
-                        <p class="personagem-alias">O Titã Louco</p>
-                        <div class="personagem-info">
-                            <div class="info-item">
-                                <span class="info-label">Afiliação</span>
-                                <span class="info-value">Independente</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">Primeira Aparição</span>
-                                <span class="info-value">The Invincible Iron Man #55 (1973)</span>
-                            </div>
-                        </div>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-        <!-- Seção Poderes -->
-        <section id="poderes" class="section section-poderes">
-            <div class="section-header">
-                <div class="section-icon">⚡</div>
-                <div>
-                    <h2 class="section-title">Poderes e Habilidades</h2>
-                    <p class="section-description">Capacidades especiais dos personagens</p>
-                </div>
-            </div>
-
-            <div class="poderes-container">
-                <div class="poderes-list">
-                    <div class="poder-item">
-                        <div class="poder-header">
-                            <div class="poder-icon">🤖</div>
-                            <div>
-                                <h4 class="poder-name">Armadura Tecnológica Avançada</h4>
-                                <p class="poder-usuario">Tony Stark</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="poder-item">
-                        <div class="poder-header">
-                            <div class="poder-icon">💪</div>
-                            <div>
-                                <h4 class="poder-name">Soro do Super Soldado</h4>
-                                <p class="poder-usuario">Steve Rogers</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="poder-item">
-                        <div class="poder-header">
-                            <div class="poder-icon">🕷️</div>
-                            <div>
-                                <h4 class="poder-name">Sentidos Aracnídeos</h4>
-                                <p class="poder-usuario">Peter Parker</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="poder-item">
-                        <div class="poder-header">
-                            <div class="poder-icon">⚡</div>
-                            <div>
-                                <h4 class="poder-name">Controle de Raios e Trovões</h4>
-                                <p class="poder-usuario">Thor</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="poder-item">
-                        <div class="poder-header">
-                            <div class="poder-icon">🔨</div>
-                            <div>
-                                <h4 class="poder-name">Força sobre-humana Asgardiana</h4>
-                                <p class="poder-usuario">Thor</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="poder-item">
-                        <div class="poder-header">
-                            <div class="poder-icon">🥋</div>
-                            <div>
-                                <h4 class="poder-name">Espionagem e Artes Marciais</h4>
-                                <p class="poder-usuario">Natasha Romanoff</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="poder-item">
-                        <div class="poder-header">
-                            <div class="poder-icon">💎</div>
-                            <div>
-                                <h4 class="poder-name">Manopla do Infinito</h4>
-                                <p class="poder-usuario">Thanos</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="poder-item">
-                        <div class="poder-header">
-                            <div class="poder-icon">👊</div>
-                            <div>
-                                <h4 class="poder-name">Força Titã</h4>
-                                <p class="poder-usuario">Thanos</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Seção Multiverso -->
-        <section id="multiverso" class="section section-multiverso">
-            <div class="section-header">
-                <div class="section-icon">🌌</div>
-                <div>
-                    <h2 class="section-title">Multiverso</h2>
-                    <p class="section-description">Diferentes realidades do universo Marvel</p>
-                </div>
-            </div>
-
-            <div class="multiverso-grid">
-                <article class="universo-card universo-principal">
-                    <div class="universo-header">
-                        <h3 class="universo-name">Terra-616</h3>
-                        <span class="universo-badge badge-principal">Principal</span>
-                    </div>
-                    <p class="universo-description">O universo principal das histórias em quadrinhos da Marvel Comics.</p>
-                    <div class="universo-footer">
-                        <span class="universo-tag">Quadrinhos</span>
-                        <span class="universo-tag">Original</span>
-                    </div>
-                </article>
-
-                <article class="universo-card universo-ativo">
-                    <div class="universo-header">
-                        <h3 class="universo-name">Terra-199999</h3>
-                        <span class="universo-badge badge-ativo">Ativo</span>
-                    </div>
-                    <p class="universo-description">O universo cinematográfico da Marvel, onde ocorrem os eventos dos filmes.</p>
-                    <div class="universo-footer">
-                        <span class="universo-tag">MCU</span>
-                        <span class="universo-tag">Cinema</span>
-                    </div>
-                </article>
-
-                <article class="universo-card universo-inativo">
-                    <div class="universo-header">
-                        <h3 class="universo-name">Terra-1610</h3>
-                        <span class="universo-badge badge-inativo">Destruído/Recriado</span>
-                    </div>
-                    <p class="universo-description">Universo alternativo com versões modernizadas dos heróis clássicos.</p>
-                    <div class="universo-footer">
-                        <span class="universo-tag">Ultimate</span>
-                        <span class="universo-tag">Alternativo</span>
-                    </div>
-                </article>
-
-                <article class="universo-card universo-ativo">
-                    <div class="universo-header">
-                        <h3 class="universo-name">Terra-838</h3>
-                        <span class="universo-badge badge-ativo">Ativo</span>
-                    </div>
-                    <p class="universo-description">Universo apresentado em Doutor Estranho no Multiverso da Loucura.</p>
-                    <div class="universo-footer">
-                        <span class="universo-tag">MCU</span>
-                        <span class="universo-tag">Alternativo</span>
-                    </div>
-                </article>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Marvel Database</h4>
-                    <p>Base de dados informativa sobre o universo Marvel</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Seções</h4>
-                    <ul class="footer-links">
-                        <li><a href="#filmes">Filmes</a></li>
-                        <li><a href="#personagens">Personagens</a></li>
-                        <li><a href="#poderes">Poderes</a></li>
-                        <li><a href="#multiverso">Multiverso</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Informações</h4>
-                    <p>© 2024 Marvel Comics</p>
-                    <p>Todos os direitos reservados</p>
-                </div>
-            </div>
+        <div class="stat-item">
+          <div class="stat-number">8</div>
+          <div class="stat-label">Poderes</div>
         </div>
-    </footer>
+        <div class="stat-item">
+          <div class="stat-number">4</div>
+          <div class="stat-label">Universos</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <!-- Seção Filmes -->
+    <section id="filmes" class="section section-filmes">
+      <div class="section-header">
+        <div class="section-icon">🎬</div>
+        <div>
+          <h2 class="section-title">Filmes do MCU</h2>
+          <p class="section-description">Principais produções cinematográficas da Marvel Studios</p>
+        </div>
+      </div>
+      <div class="filmes-grid">
+        <% if (typeof filmes !=='undefined' && filmes && filmes.length) { %>
+          <% filmes.forEach(filme=> { %>
+            <article class="filme-card">
+              <div>
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                  <h3 class="filme-title" style="margin:0">
+                    <%=filme.nome%>
+                  </h3>
+                  <div class="filme-year"
+                    style="display:inline-block;padding:6px 10px;border-radius:8px;background:#fff0f0;color:#dc2626;font-weight:700">
+                    <%= filme.ano ? (typeof filme.ano==='number' ? filme.ano : (new Date(filme.ano).getUTCFullYear ? new
+                      Date(filme.ano).getUTCFullYear() : filme.ano)) : '—' %>
+                  </div>
+                </div>
+                <p style="color:#475569;margin:8px 0 0;line-height:1.4;font-size:0.95rem">
+                  <%= (filme.sinopse && filme.sinopse.length>200) ? filme.sinopse.substr(0,200) + '...' : (filme.sinopse
+                    || '') %>
+                </p>
+                <div class="filme-meta" style="margin-top:10px;display:flex;gap:8px;align-items:center">
+                  <span class="filme-rating" style="background:#f1f5f9;padding:6px 10px;border-radius:8px">Class.:
+                    <strong>
+                      <%=filme.classificacao || '—' %>
+                    </strong></span>
+                  <% if (filme.fase) { %><span class="filme-phase"
+                      style="background:#eff6ff;padding:6px 10px;border-radius:8px">
+                      <%=filme.fase%>
+                    </span>
+                    <% } %>
+                </div>
+                <div style="margin-top:12px;display:flex;gap:8px">
+                  <a href="/filmes/edit/<%=filme._id || filme.id%>" class="btn ghost small">Editar</a>
+                  <a href="/filmes/del/<%=filme._id || filme.id%>" class="btn ghost small">Excluir</a>
+                </div>
+              </div>
+            </article>
+            <% }) %>
+              <% } else { %>
+                <article class="filme-card">
+                  <div>
+                    <div style="display:flex;align-items:center;justify-content:space-between;gap:12px">
+                      <h3 class="filme-title" style="margin:0">Iron Man</h3>
+                      <div class="filme-year"
+                        style="display:inline-block;padding:6px 10px;border-radius:8px;background:#fff0f0;color:#dc2626;font-weight:700">
+                        2008</div>
+                    </div>
+                    <p style="color:#475569;margin:8px 0 0;line-height:1.4;font-size:0.95rem">O playboy industrial Tony
+                      Stark constrói uma armadura para escapar de captores e acaba tornando-se um herói relutante.</p>
+                    <div class="filme-meta" style="margin-top:10px;display:flex;gap:8px;align-items:center">
+                      <span class="filme-rating" style="background:#f1f5f9;padding:6px 10px;border-radius:8px">Class.:
+                        <strong>PG-13</strong></span>
+                      <span class="filme-phase" style="background:#eff6ff;padding:6px 10px;border-radius:8px">Fase
+                        1</span>
+                    </div>
+                  </div>
+                </article>
+                <% } %>
+      </div>
+    </section>
+
+    <!-- Seção Personagens -->
+    <section id="personagens" class="section section-personagens">
+      <div class="section-header">
+        <div class="section-icon">🦸</div>
+        <div>
+          <h2 class="section-title">Personagens</h2>
+          <p class="section-description">Heróis e vilões do universo Marvel</p>
+        </div>
+      </div>
+      <%personagens.forEach(personagem=>{%>
+        <div class="personagens-grid">
+          <article class="personagem-card">
+            <div class="personagem-image">
+              <% if (personagem.foto) { %>
+                <img src="<%= personagem.foto %>" alt="<%= personagem.nome %>">
+                <% } else { %>
+                  <img src="https://images.unsplash.com/photo-1543168254-93a8a3b3f1d6?auto=format&fit=crop&w=1080&q=60"
+                    alt="<%= personagem.nome %>">
+                  <% } %>
+                    <div
+                      class="personagem-tipo <%= personagem.tipo && personagem.tipo.toLowerCase().includes('vil') ? 'personagem-vilao' : 'personagem-heroi' %>">
+                      <%= personagem.tipo || 'Desconhecido' %>
+                    </div>
+            </div>
+            <div class="personagem-content">
+              <h3 class="personagem-name">
+                <%=personagem.nome%>
+              </h3>
+              <p class="personagem-alias">
+                <%=personagem.tipo || '' %>
+              </p>
+              <div class="personagem-info">
+                <div class="info-item">
+                  <span class="info-label">Primeira Aparição</span>
+                  <span class="info-value">
+                    <%=personagem.primeira_aparicao || '—' %>
+                  </span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Afiliação</span>
+                  <span class="info-value">
+                    <%=personagem.afiliacao || '—' %>
+                  </span>
+                </div>
+              </div>
+              <div style="margin-top:12px;display:flex;gap:8px;">
+                <a href="/personagens/edit/<%=personagem._id || personagem.id%>" class="btn ghost small">Ver /
+                  Editar</a>
+                <a href="/personagens/del/<%=personagem._id || personagem.id%>" class="btn ghost small">Excluir</a>
+              </div>
+            </div>
+          </article>
+          <%})%>
+        </div>
+    </section>
+
+    <!-- Seção Poderes -->
+    <section id="poderes" class="section section-poderes">
+      <div class="section-header">
+        <div class="section-icon">⚡</div>
+        <div>
+          <h2 class="section-title">Poderes e Habilidades</h2>
+          <p class="section-description">Capacidades especiais dos personagens</p>
+        </div>
+      </div>
+      <%poderes.forEach(poder=> { %>
+        <div class="poderes-container">
+          <div class="poderes-list">
+            <div class="poder-item">
+              <div class="poder-header">
+                <div class="poder-icon">🤖</div>
+                <div>
+                  <h4 class="poder-name">
+                    <%=poder.nome%>
+                  </h4>
+                  <p class="poder-usuario">
+                    <%=poder.usuario%>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <%})%>
+    </section>
+
+    <!-- Seção Multiverso -->
+    <section id="multiverso" class="section section-multiverso">
+      <div class="section-header">
+        <div class="section-icon">🌌</div>
+        <div>
+          <h2 class="section-title">Multiverso</h2>
+          <p class="section-description">Diferentes realidades do universo Marvel</p>
+        </div>
+      </div>
+      <%universos.forEach(universo=> { %>
+        <div class="multiverso-grid">
+          <article class="universo-card universo-principal">
+            <div class="universo-header">
+              <h3 class="universo-name">
+                <%=universo.nome%>
+              </h3>
+              <span class="universo-badge badge-principal">
+                <%=universo.status%>
+              </span>
+            </div>
+            <p class="universo-description">
+              <%=universo.descricao%>
+            </p>
+
+          </article>
+        </div>
+        <%})%>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>Marvel Database</h4>
+          <p>Base de dados informativa sobre o universo Marvel</p>
+        </div>
+        <div class="footer-section">
+          <h4>Seções</h4>
+          <ul class="footer-links">
+            <li><a href="#filmes">Filmes</a></li>
+            <li><a href="#personagens">Personagens</a></li>
+            <li><a href="#poderes">Poderes</a></li>
+            <li><a href="#multiverso">Multiverso</a></li>
+          </ul>
+        </div>
+        <div class="footer-section">
+          <h4>Informações</h4>
+          <p>© 2024 Marvel Comics</p>
+          <p>Todos os direitos reservados</p>
+        </div>
+      </div>
+    </div>
+  </footer>
 </body>
+
 </html>

@@ -56,6 +56,9 @@ app.post('/personagens/edit/ok', async (req, res) => {
 app.post('/personagens/add/ok', upload.single("foto"), async (req, res) => {
      await Personagens.create({
         nome:req.body.nome,
+        tipo:req.body.tipo,
+        afiliacao:req.body.afiliacao,
+        primeira_aparicao:req.body.primeira_aparicao,
         foto:req.file.buffer
      })
     res.render("personagens/addok")
@@ -137,8 +140,8 @@ app.get('/universos/lst', async (req, res) => {
 })
 
 app.get('/universos/edit/:id', async (req, res) => {
-    const universo = await Universo.findById (req.params.id)
-    res.render("universos/edit", {universo:universo})
+    const universos = await Universo.findById (req.params.id)
+    res.render("universos/edit", {universos:universos})
 })
 
 app.post('/universos/edit/ok', async (req, res) => {
@@ -166,8 +169,11 @@ app.get('/universos/del/:id', async (req, res) => {
 
 //====== SITE ======
 app.get('/site', async (req, res) => {
-   const personagens = await personagens.find
-res.render("site/index")
+   const personagens = await Personagens.find()
+   const filmes = await Filme.find()
+   const universos = await Universo.find()
+   const poderes = await Poder.find()
+res.render("site/index",{personagens,filmes,universos,poderes})
 })
 
 
