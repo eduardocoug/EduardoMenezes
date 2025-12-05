@@ -185,6 +185,6 @@ res.render("site/index",{personagens,filmes,universos,poderes})
 })
 
 //FIM ROTAS
-app.listen(3001)
+app.listen(8080)
 // Exporta o handler compatível com Vercel
 export default app;
